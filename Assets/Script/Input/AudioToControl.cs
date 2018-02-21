@@ -13,13 +13,16 @@ public class AudioToControl : MonoBehaviour {
     public float bangShootVolume;
     [Range(0f, 0.1f)]
     public float bangSoftener;
+	public ShootingControl shootingControl;
 
     private float[] samples = new float[1024];
     private float bangVolume;
+	private bool isShooting = false;
 
     void Awake() {
         audioSource = GetComponent<AudioSource> ();
-        lineRendererClean.positionCount = 128;
+        if (lineRendererClean)
+            lineRendererClean.positionCount = 128;
     }
 
     void Update() {
@@ -30,15 +33,26 @@ public class AudioToControl : MonoBehaviour {
         if (lineRendererClean != null)
             DrawCleanLine (lineRendererClean);
 
-        Vector3 newBangPos = bangIndicator.transform.position;
-        newBangPos.y = bangVolume * k;
-        bangIndicator.transform.position = newBangPos;
+		if (bangIndicator != null) {
+			Vector3 newBangPos = bangIndicator.transform.position;
+			newBangPos.y = bangVolume * k;
+			bangIndicator.transform.position = newBangPos;
 
-        if (bangVolume > bangShootVolume / k) {
-            bangIndicator.GetComponent<SpriteRenderer> ().color = Color.red;
-        } else {
-            bangIndicator.GetComponent<SpriteRenderer> ().color = Color.white;
-        }
+			if (bangVolume > bangShootVolume / k) {
+				bangIndicator.GetComponent<SpriteRenderer> ().color = Color.red;
+			} else {
+				bangIndicator.GetComponent<SpriteRenderer> ().color = Color.white;
+			}
+		}
+			
+		if (bangVolume >= bangShootVolume / k) {
+			//if (!isShooting)
+				shootingControl.Shoot ();
+			//isShooting = true;
+		} else {
+			isShooting = false;
+		}
+
     }
 
     private void GetSpectrum() {
