@@ -1,0 +1,10 @@
+k = 200 is the standard value.
+
+Finger snap frequencey and volume:
+	2400hz -> 5500hz, 0.1 db, 0 gate
+
+Bang:
+	100hz -> 300hz, 5db, 0.001 gate
+
+Laser:
+	400hz -> 550hz, 5db, 0 gate

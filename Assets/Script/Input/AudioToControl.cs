@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioToControl : MonoBehaviour {
 
-    private AudioSource audioSource;
+    #region Public Variables
     public Transform[] points;
     public float k = 200f;
     public LineRenderer lineRendererClean;
@@ -14,11 +14,16 @@ public class AudioToControl : MonoBehaviour {
     [Range(0f, 0.1f)]
     public float bangSoftener;
 	public ShootingControl shootingControl;
+    #endregion
 
+    #region Private Variables
+    private AudioSource audioSource;
     private float[] samples = new float[1024];
     private float bangVolume;
 	private bool isShooting = false;
+    #endregion
 
+    #region Mono Methods
     void Awake() {
         audioSource = GetComponent<AudioSource> ();
         if (lineRendererClean)
@@ -46,15 +51,17 @@ public class AudioToControl : MonoBehaviour {
 		}
 			
 		if (bangVolume >= bangShootVolume / k) {
-			//if (!isShooting)
+			if (!isShooting)
 				shootingControl.Shoot ();
-			//isShooting = true;
+			isShooting = true;
 		} else {
 			isShooting = false;
 		}
 
     }
+    #endregion
 
+    #region Audio Methods
     private void GetSpectrum() {
         //24000
         audioSource.GetSpectrumData (samples, 0, FFTWindow.Rectangular);
@@ -74,7 +81,7 @@ public class AudioToControl : MonoBehaviour {
             int freqCount = 0;
             for (int i=lowIndex; i<=highIndex; i++) {
                 sum += samples[i];
-                if (samples[i] > bangSoftener)
+                if (samples[i] >= bangSoftener)
                     freqCount++;
             }
             if (freqCount > 0)
@@ -83,11 +90,14 @@ public class AudioToControl : MonoBehaviour {
         }
         return 0f;
     }
+    #endregion
 
+    #region Debug Methods
     private void DrawCleanLine(LineRenderer lineRenderer) {
         for (int i = 0; i < lineRenderer.positionCount; i++) {
             lineRenderer.SetPosition (i, new Vector3 (i / 4f, k * samples[i * 2], 0f));
         }
     }
+    #endregion
 
 }
