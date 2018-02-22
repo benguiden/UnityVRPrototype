@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/scene_AudioTest.unity
-    guid: e3984eaddb49ae84f8846c9aeed90d61
+    path: Assets/Scenes/scene_ShootTest.unity
+    guid: d29142f6165df284ca3ce6b48d171c2c

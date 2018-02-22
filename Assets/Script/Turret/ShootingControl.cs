@@ -12,11 +12,20 @@ public class ShootingControl : MonoBehaviour {
     #endregion
 
     #region Mono Methods
-    public void OnDrawGizmos() {
+    private void OnDrawGizmos() {
         Gizmos.color = Color.blue;
         Gizmos.DrawLine (transform.position, transform.position + transform.forward);
     }
+
+    
+    private void Update() {
+        #if UNITY_EDITOR
+        if (Input.GetMouseButtonDown (0))
+            Shoot ();
+        #endif
+    }
     #endregion
+
 
     #region Shooting Methods
     public void Shoot(){
