@@ -19,10 +19,10 @@ public class ShootingControl : MonoBehaviour {
 
     
     private void Update() {
-        #if UNITY_EDITOR
+        //#if UNITY_EDITOR
         if (Input.GetMouseButtonDown (0))
             Shoot ();
-        #endif
+        //#endif
     }
     #endregion
 

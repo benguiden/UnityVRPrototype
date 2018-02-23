@@ -6,6 +6,7 @@ public class MicrophoneInput : MonoBehaviour {
 
     private AudioSource audioSource;
     public string audioDevice;
+    public TextMesh worldText;
 
     private void Awake() {
         audioSource = GetComponent<AudioSource> ();
@@ -35,6 +36,8 @@ public class MicrophoneInput : MonoBehaviour {
         }
         output += "\n";
         Debug.Log (output);
+        if (worldText != null)
+            worldText.text = output;
     }
 
 }

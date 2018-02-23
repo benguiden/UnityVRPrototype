@@ -14,6 +14,9 @@ public class AudioToControl : MonoBehaviour {
     [Range(0f, 0.1f)]
     public float bangSoftener;
 	public ShootingControl shootingControl;
+    public TextMesh worldText;
+    public bool normalizeSpectrum;
+    public float normlaizedAmount = 4f;
     #endregion
 
     #region Private Variables
@@ -35,6 +38,9 @@ public class AudioToControl : MonoBehaviour {
 
         bangVolume = GetBangVolume ();
 
+        if (worldText != null)
+            worldText.text = (Mathf.Round(bangVolume * 10000) / 100f).ToString();
+
         if (lineRendererClean != null)
             DrawCleanLine (lineRendererClean);
 
@@ -43,11 +49,12 @@ public class AudioToControl : MonoBehaviour {
 			newBangPos.y = bangVolume * k;
 			bangIndicator.transform.position = newBangPos;
 
-			if (bangVolume > bangShootVolume / k) {
+			/*if (bangVolume > bangShootVolume / k) {
 				bangIndicator.GetComponent<SpriteRenderer> ().color = Color.red;
 			} else {
 				bangIndicator.GetComponent<SpriteRenderer> ().color = Color.white;
-			}
+			}*/
+            
 		}
 			
 		if (bangVolume >= bangShootVolume / k) {
@@ -63,8 +70,17 @@ public class AudioToControl : MonoBehaviour {
 
     #region Audio Methods
     private void GetSpectrum() {
+        float[] newSamples = new float[samples.Length];
         //24000
-        audioSource.GetSpectrumData (samples, 0, FFTWindow.Rectangular);
+        audioSource.GetSpectrumData (newSamples, 0, FFTWindow.Rectangular);
+
+        float normalisedPoint = 1f;
+        
+        for (int i=0; i<256; i++) {
+            if (normalizeSpectrum)
+                normalisedPoint = Mathf.Clamp(1f + ((float)i / 80f), 1f, 2f) * normlaizedAmount;
+            samples[i] = Mathf.Lerp(samples[i], newSamples[i] * normalisedPoint, 1f);
+        }
     }
 
     private float GetBangVolume() {
@@ -78,14 +94,20 @@ public class AudioToControl : MonoBehaviour {
                 highIndex = samples.Length - 1;
 
             float sum = 0f;
-            int freqCount = 0;
+            /*int freqCount = 0;
             for (int i=lowIndex; i<=highIndex; i++) {
                 sum += samples[i];
                 if (samples[i] >= bangSoftener)
                     freqCount++;
             }
             if (freqCount > 0)
-                sum /= (float)freqCount;
+                sum /= (float)freqCount;*/
+
+            for (int i = lowIndex; i <= highIndex; i++) {
+                if ((samples[i] >= bangSoftener) && (samples[i] > sum))
+                    sum = samples[i];
+            }
+
             return sum;
         }
         return 0f;
