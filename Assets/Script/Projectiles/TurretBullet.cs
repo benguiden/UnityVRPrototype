@@ -6,8 +6,13 @@ public class TurretBullet : MonoBehaviour {
 
     public float lifeSpan = 10f;
     public float speed = 20f;
+    public float spawnTime = 0.25f;
 
     #region Mono Methods
+    private void Start() {
+        StartCoroutine(SpawnGrow());
+    }
+
     private void Update() {
         transform.position += transform.forward * speed * Time.deltaTime;
     }
@@ -30,5 +35,19 @@ public class TurretBullet : MonoBehaviour {
     }
     #endregion
 
+    #region Visual Methods
+    private IEnumerator SpawnGrow() {
+        Vector3 originalScale = transform.localScale;
+        float time = 0f;
+        while (time < spawnTime) {
+            float scale = time / spawnTime;
+            transform.localScale = originalScale * scale;
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+        transform.localScale = originalScale;
+    }
+    #endregion
 
 }
