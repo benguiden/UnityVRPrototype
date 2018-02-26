@@ -94,7 +94,7 @@ using UnityEngine;
         }
 
         private void MoveTowardsPoint() {
-			enemy.AddForwardAcceleration (followSpeed);
+        enemy.velocity = enemy.transform.forward * followSpeed;
         }
         #endregion
 

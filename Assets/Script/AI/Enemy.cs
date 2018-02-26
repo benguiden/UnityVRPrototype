@@ -14,6 +14,10 @@ public class Enemy : MonoBehaviour {
     public PathFollower pathFollowing;
     #endregion
 
+    #region Private Variables
+    
+    #endregion
+
     #region Mono Methods
     private void Awake() {
         pathFollowing.SetEnemy(this);
@@ -76,6 +80,15 @@ public class Enemy : MonoBehaviour {
         acceleration = Vector3.zero;
 
         transform.position += velocity * Time.deltaTime;
+    }
+    #endregion
+
+    #region Messages
+    private void OnTriggerEnter(Collider c) {
+        Debug.Log(c.gameObject.name);
+        if (c.gameObject.tag == "Projectile") {
+            Destroy(gameObject);
+        }
     }
     #endregion
 

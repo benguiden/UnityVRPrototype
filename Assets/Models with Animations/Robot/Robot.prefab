@@ -255,6 +255,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4722188507814094}
   - component: {fileID: 95210235440777350}
+  - component: {fileID: 136304967053409588}
+  - component: {fileID: 114555273690638872}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Untagged
@@ -2104,9 +2106,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211753703047804}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7892566, y: -0.14333868, z: 14.711475}
-  m_LocalScale: {x: 18.349241, y: 18.349241, z: 18.349241}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0.562, z: 135.3}
+  m_LocalScale: {x: 18, y: 18, z: 18}
   m_Children:
   - {fileID: 4406084542919142}
   - {fileID: 4972655974780752}
@@ -2148,7 +2150,7 @@ Transform:
   - {fileID: 4741812675265252}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4741812675265252
 Transform:
   m_ObjectHideFlags: 1
@@ -2356,6 +2358,41 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114555273690638872
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1211753703047804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90552107805ad694baee8d3688f04c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 1
+  velocity: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
+  maxSpeed: 10
+  pathFollowing:
+    pathDatabase: {fileID: 11400000, guid: 98f738963ec71bd458358b1532918213, type: 2}
+    pathIndex: 0
+    pathPositionOffset: {x: 0, y: 0, z: 0}
+    pointIndex: 5
+    followSpeed: 2
+    pointChangeDistance: 2
+--- !u!136 &136304967053409588
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1211753703047804}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.05
+  m_Height: 0.2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!137 &137058409731573764
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
