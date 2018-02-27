@@ -11,4 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b41c33cbf7ec3ae4a9e7825e46bb3b69, type: 3}
   m_Name: Path Database
   m_EditorClassIdentifier: 
-  paths: []
+  paths:
+  - name: Enemy
+    color: {r: 0.9705882, g: 0.14987026, b: 0.14987026, a: 1}
+    points:
+    - {x: -2.4228363, y: 0, z: 43.024113}
+    - {x: 9.748817, y: 0, z: 36.711}
+    - {x: 11.5948105, y: 0, z: 20.0088}
+    - {x: 1.4268913, y: 0, z: 8.131386}
+    - {x: -20.195034, y: 0, z: 22.927998}
+    - {x: -39.3876, y: 0, z: 53.637363}
