@@ -7,6 +7,7 @@ public class TurretBullet : MonoBehaviour {
     public float lifeSpan = 10f;
     public float speed = 20f;
     public float spawnTime = 0.25f;
+    public float breakForce = 10f;
 
     #region Mono Methods
     private void Start() {

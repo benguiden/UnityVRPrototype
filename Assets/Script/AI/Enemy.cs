@@ -85,9 +85,11 @@ public class Enemy : MonoBehaviour {
 
     #region Messages
     private void OnTriggerEnter(Collider c) {
-        Debug.Log(c.gameObject.name);
-        if (c.gameObject.tag == "Projectile") {
-            Destroy(gameObject);
+        if (enabled) {
+            if (c.gameObject.tag == "Projectile") {
+                Vector3 forcePosition = new Vector3(c.transform.position.x, 0f, c.transform.position.z);
+                GetComponent<BreakUp>().Activate(forcePosition, c.gameObject.GetComponent<TurretBullet>().breakForce);
+            }
         }
     }
     #endregion

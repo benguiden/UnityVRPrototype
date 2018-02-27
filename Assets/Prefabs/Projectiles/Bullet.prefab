@@ -126,3 +126,4 @@ MonoBehaviour:
   lifeSpan: 10
   speed: 20
   spawnTime: 0.25
+  breakForce: 150
