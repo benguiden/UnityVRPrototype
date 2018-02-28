@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if Unity_Editor
 using UnityEditor;
+#endif
 
 
 
@@ -25,12 +27,12 @@ using UnityEditor;
 		}
 	}
 
-    #region Enums
+#region Enums
     public enum PathReference{
         Index,
         Name
     }
-    #endregion
+#endregion
 
 
 
