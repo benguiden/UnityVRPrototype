@@ -2114,7 +2114,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211753703047804}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.562, z: 44.2}
+  m_LocalPosition: {x: -0.28, y: 0.562, z: 16.86}
   m_LocalScale: {x: 18, y: 18, z: 18}
   m_Children:
   - {fileID: 4406084542919142}
@@ -2509,8 +2509,9 @@ MonoBehaviour:
     pathIndex: 0
     pathPositionOffset: {x: 0, y: 0, z: 0}
     pointIndex: 2
-    followSpeed: 2
+    followSpeed: 4
     pointChangeDistance: 2
+  isAlive: 1
 --- !u!136 &136304967053409588
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -20,8 +20,9 @@ public class Enemy : MonoBehaviour {
 
     #region Private Variables
     //UI
-    private RectTransform uiObject;
-    private Image uiImage;
+    private Transform uiObject;
+    private SpriteRenderer uiRenderer;
+    private float lastUIDistance;
     #endregion
 
     #region Mono Methods
@@ -95,12 +96,12 @@ public class Enemy : MonoBehaviour {
 
     #region UI Methods
     private void InitaliseUI() {
-        uiObject = ((GameObject)Instantiate (EnemyManager.main.uiPrefab)).GetComponent<RectTransform> ();
-        uiImage = uiObject.GetComponent<Image> ();
-        uiImage.color = new Color (1f, 1f, 1f, 0f);
+        uiObject = ((GameObject)Instantiate (EnemyManager.main.uiPrefab)).transform;
+        uiRenderer = uiObject.GetComponent<SpriteRenderer> ();
+        uiRenderer.color = new Color (1f, 1f, 1f, 0f);
         uiObject.SetParent (EnemyManager.main.uiParent);
-        uiObject.localScale = new Vector3 (1f, 1f, 1f);
-        uiObject.anchoredPosition3D = Vector3.zero;
+        uiObject.position = Camera.main.transform.position;
+        uiObject.localEulerAngles = Vector3.zero;
         uiObject.gameObject.SetActive (false);
         StartCoroutine (UpdateUIPosition ());
     }
@@ -111,18 +112,35 @@ public class Enemy : MonoBehaviour {
             if ((Vector3.Distance(transform.position, Camera.main.transform.position) <= EnemyManager.main.uiActivateDistance) && (isAlive)) {
                 if (!uiObject.gameObject.activeSelf)
                     uiObject.gameObject.SetActive (true);
-                Vector3 newUIPosition = EnemyManager.main.canvas.worldCamera.WorldToScreenPoint (transform.position + new Vector3 (0f, 2f, 0f));
-                newUIPosition *= 1280f / Screen.width;
-                float newAlpha = 1f;
-                float displacement = ((Vector2)newUIPosition - uiObject.anchoredPosition).magnitude;
-                if (displacement > 0f)
-                    newAlpha = 1f / displacement;
-                newAlpha = Mathf.Clamp01 (newAlpha * EnemyManager.main.uiAlphaAmount);
-                uiImage.color = new Color (1f, 1f, 1f, newAlpha);
-                uiObject.anchoredPosition = Vector2.Lerp (uiObject.anchoredPosition, (Vector2)newUIPosition, 1f - EnemyManager.main.uiUpdateSmoothness);
+
+                Vector3 futurePosition = transform.position;
+                if (EnemyManager.main.anticipatePosition) {
+                    float distanceToEnemy = Vector3.Distance (transform.position + new Vector3 (0f, EnemyManager.main.uiYOffset, 0f), Camera.main.transform.position);
+                    float timeToEnemy = distanceToEnemy / EnemyManager.main.bulletSpeedForUI;
+                    futurePosition += (velocity * timeToEnemy);
+                }
+
+                Vector3 newPosition = ((futurePosition + new Vector3 (0f, EnemyManager.main.uiYOffset, 0f)) - Camera.main.transform.position);
+                newPosition = Camera.main.transform.position + (newPosition.normalized * EnemyManager.main.uiCameraDistance);
+
+                uiObject.transform.position = Vector3.Lerp (uiObject.transform.position, newPosition, EnemyManager.main.uiUpdateSmoothness);
+
+                Vector3 cameraForwardPoint = Camera.main.transform.position + (Camera.main.transform.forward * EnemyManager.main.uiCameraDistance);
+                float newUIDistance = Vector3.Distance (uiObject.transform.position, cameraForwardPoint);
+                float newAlpha = 0f;
+                if (Mathf.Abs (newUIDistance - lastUIDistance) > 0f)
+                    newAlpha = EnemyManager.main.uiAlphaAmount / Mathf.Clamp (Mathf.Abs (newUIDistance - lastUIDistance), 0f, 0.75f);
+                newAlpha = Mathf.Lerp (uiRenderer.color.a, newAlpha, 0.5f);
+                lastUIDistance = newUIDistance;
+
+                uiRenderer.color = new Color (1f, 1f, 1f, newAlpha);
+                uiObject.LookAt (Camera.main.transform);
+
             } else {
-                if (uiObject.gameObject.activeSelf)
+                if (uiObject.gameObject.activeSelf) {
                     uiObject.gameObject.SetActive (false);
+                    uiRenderer.color = new Color (1f, 1f, 1f, 0f);
+                }
             }
             
             yield return new WaitForSeconds (1f / EnemyManager.main.updateUIRate);

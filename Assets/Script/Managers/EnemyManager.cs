@@ -9,15 +9,17 @@ public class EnemyManager : MonoBehaviour {
     public static EnemyManager main;
 
     [Header ("UI")]
-    public Canvas canvas;
-    public CanvasScaler canvasScaler;
     public Object uiPrefab;
     public Transform uiParent;
     public float uiActivateDistance = 50f;
     public float updateUIRate = 60f;
     [Range (float.Epsilon, 1f)]
-    public float uiUpdateSmoothness = 0.85f;
+    public float uiUpdateSmoothness = 0.25f;
     public float uiAlphaAmount = 8f;
+    public float uiYOffset = 0.5f;
+    public float uiCameraDistance = 2f;
+    public bool anticipatePosition = true;
+    public float bulletSpeedForUI;
     #endregion
 
     #region Mono Methods
