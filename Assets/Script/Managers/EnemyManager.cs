@@ -8,6 +8,9 @@ public class EnemyManager : MonoBehaviour {
     #region Public Variables
     public static EnemyManager main;
 
+    [Header ("Visuals")]
+    public Object[] destroyVFX;
+
     [Header ("UI")]
     public Object uiPrefab;
     public Transform uiParent;

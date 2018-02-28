@@ -2113,8 +2113,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211753703047804}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.28, y: 0.562, z: 16.86}
+  m_LocalRotation: {x: 0, y: 0.86007494, z: 0, w: 0.5101678}
+  m_LocalPosition: {x: -68.5, y: 0.562, z: 91.2}
   m_LocalScale: {x: 18, y: 18, z: 18}
   m_Children:
   - {fileID: 4406084542919142}
@@ -2157,7 +2157,7 @@ Transform:
   - {fileID: 4741812675265252}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 118.65, z: 0}
 --- !u!4 &4741812675265252
 Transform:
   m_ObjectHideFlags: 1
@@ -2504,13 +2504,15 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
   maxSpeed: 10
+  torso: {fileID: 4406084542919142}
   pathFollowing:
     pathDatabase: {fileID: 11400000, guid: 98f738963ec71bd458358b1532918213, type: 2}
     pathIndex: 0
     pathPositionOffset: {x: 0, y: 0, z: 0}
-    pointIndex: 2
-    followSpeed: 4
+    pointIndex: 0
+    followSpeed: 5
     pointChangeDistance: 2
+    turnspeed: 0
   isAlive: 1
 --- !u!136 &136304967053409588
 CapsuleCollider:

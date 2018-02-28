@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour {
     public Vector3 acceleration;
     public float maxSpeed = 10f;
 
+    [Header ("Visuals")]
+    public Transform torso;
+
     [Header("Behaviours")]
     public PathFollower pathFollowing;
 
@@ -151,7 +154,21 @@ public class Enemy : MonoBehaviour {
                 Vector3 forcePosition = new Vector3(c.transform.position.x, 0f, c.transform.position.z);
                 GetComponent<BreakUp>().Activate(forcePosition, c.gameObject.GetComponent<TurretBullet>().breakForce);
                 uiObject.gameObject.SetActive (false);
+                SpawnDestroyVFX (c.transform.position);
                 Destroy (c.gameObject);
+            }
+        }
+    }
+
+    private void SpawnDestroyVFX(Vector3 spawnPosition) {
+        for (int i=0; i< EnemyManager.main.destroyVFX.Length; i++){
+            Transform vfxTransform = ((GameObject)Instantiate (EnemyManager.main.destroyVFX[i])).transform;
+            if ((i == 0) && (torso != null)) {
+                vfxTransform.SetParent (torso);
+                vfxTransform.localPosition = Vector3.zero;
+            } else {
+                vfxTransform.SetParent (transform);
+                vfxTransform.position = spawnPosition;
             }
         }
     }
