@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager main;
 
+    public int wave;
+
     private void Awake() {
         main = this;
     }
