@@ -17,6 +17,7 @@ using UnityEngine;
         public uint pointIndex;
         public float followSpeed = 5f;
         public float pointChangeDistance = 5f;
+        public float turnspeed = 1f;
         #endregion
 
         #region Private Variables
@@ -34,6 +35,7 @@ using UnityEngine;
         #region Boid Methods
         public void Awake() {
             RefreshPath ();
+        pathPositionOffset = new Vector3 (Random.Range (-2f, 2f), 0f, Random.Range (-2f, 2f));
         }
 
         public void Update() {
@@ -44,25 +46,26 @@ using UnityEngine;
             }
         }
 
-        public void OnDrawGizmos() {
-            if (path != null) {
-                if (pointIndex < path.points.Count) {
-                    Gizmos.color = new Color (path.color.r, path.color.g, path.color.b, path.color.a / 2f);
-                    int lastPoint = (int)pointIndex - 1;
-                    if (lastPoint < 0)
-                        lastPoint = path.points.Count - 1;
-                    Gizmos.DrawWireCube (path.points[lastPoint] + pathPositionOffset, new Vector3 (2f, 2f, 2f));
-                    Gizmos.DrawLine (path.points[lastPoint] + pathPositionOffset, path.points[(int)pointIndex] + pathPositionOffset);
-                    Gizmos.color = path.color;
-                    Gizmos.DrawWireCube (path.points[(int)pointIndex] + pathPositionOffset, new Vector3 (2f, 2f, 2f));
+    public void OnDrawGizmos() {
+        if (path != null) {
+            if (pointIndex < path.points.Count) {
+                /*Gizmos.color = new Color (path.color.r, path.color.g, path.color.b, path.color.a / 2f);
+                int lastPoint = (int)pointIndex - 1;
+                if (lastPoint < 0)
+                    lastPoint = path.points.Count - 1;
+                //Gizmos.DrawWireCube (path.points[lastPoint], new Vector3 (2f, 2f, 2f));
+                Gizmos.DrawLine (path.points[lastPoint] + pathPositionOffset, targetPosition);*/
+                Vector3 targetPosition = GetOffsetTarget ();
+                Gizmos.color = path.color;
+                Gizmos.DrawWireCube (targetPosition, new Vector3 (2f, 2f, 2f));
 
-                    Vector3 lookTarget = path.points[(int)pointIndex] + pathPositionOffset;
-                    lookTarget -= enemy.transform.position;
-                    Gizmos.DrawLine (enemy.transform.position, enemy.transform.position + (lookTarget.normalized * 10f));
-                }
+                //Vector3 lookTarget = path.points[(int)pointIndex] + pathPositionOffset;
+                //lookTarget -= enemy.transform.position;
+                //Gizmos.DrawLine (enemy.transform.position, enemy.transform.position + (lookTarget.normalized * 10f));
             }
         }
-        #endregion
+    }
+    #endregion
 
         #region Movement Methods
         private void RefreshPath() {
@@ -81,17 +84,26 @@ using UnityEngine;
         }
 
         private void CheckNextPoint() {
-            if (Vector3.Distance(enemy.transform.position, path.points[(int)pointIndex] + pathPositionOffset) <= pointChangeDistance) {
+            if (Vector3.Distance(enemy.transform.position, GetOffsetTarget ()) <= pointChangeDistance) {
                 pointIndex = (uint)((pointIndex + 1) % path.points.Count);
             }
         }
 
-        private void LookAtPoint() {
-            Vector3 lookTarget = path.points[(int)pointIndex] + pathPositionOffset;
-            lookTarget -= enemy.transform.position;
-            lookTarget.Normalize ();
-            enemy.transform.rotation = Quaternion.Lerp (enemy.transform.rotation, Quaternion.LookRotation (lookTarget), 0.25f * Time.deltaTime * 15f);
-        }
+    private Vector3 GetOffsetTarget() {
+        /*Vector3 pathPosForward = (path.points[(int)pointIndex] - path.points[((int)pointIndex + 1) % path.points.Count]).normalized;
+        float offsetAngle = Mathf.Atan2 (pathPosForward.z, pathPosForward.x);
+        Vector3 offset = new Vector3 (Mathf.Cos (offsetAngle), 0f, Mathf.Sin (offsetAngle));
+        Debug.Log (offset);
+        offset = new Vector3 (pathPositionOffset.x * offset.magnitude, 0f, pathPositionOffset.z * offset.magnitude);*/
+        return path.points[(int)pointIndex] + pathPositionOffset;
+    }
+
+    private void LookAtPoint() {
+        Vector3 lookTarget = GetOffsetTarget ();
+        lookTarget -= enemy.transform.position;
+        lookTarget.Normalize ();
+        enemy.transform.rotation = Quaternion.Lerp (enemy.transform.rotation, Quaternion.LookRotation (lookTarget), turnspeed * Time.deltaTime * 60f);
+    }
 
         private void MoveTowardsPoint() {
         enemy.velocity = enemy.transform.forward * followSpeed;

@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour {
     public Vector3 acceleration;
     public float maxSpeed = 10f;
 
+    [Header ("Visuals")]
+    public Transform torso;
+
     [Header("Behaviours")]
     public PathFollower pathFollowing;
 
@@ -22,7 +25,6 @@ public class Enemy : MonoBehaviour {
     //UI
     private Transform uiObject;
     private SpriteRenderer uiRenderer;
-    private float lastUIDistance;
     #endregion
 
     #region Mono Methods
@@ -109,13 +111,13 @@ public class Enemy : MonoBehaviour {
     private IEnumerator UpdateUIPosition() {
         yield return new WaitForSeconds (Random.Range (0f, 1f / EnemyManager.main.updateUIRate));
         while (uiObject != null) {
-            if ((Vector3.Distance(transform.position, Camera.main.transform.position) <= EnemyManager.main.uiActivateDistance) && (isAlive)) {
+            float distanceToEnemy = Vector3.Distance (transform.position + new Vector3 (0f, EnemyManager.main.uiYOffset, 0f), Camera.main.transform.position);
+            if ((distanceToEnemy <= EnemyManager.main.uiActivateDistance) && (isAlive)) {
                 if (!uiObject.gameObject.activeSelf)
                     uiObject.gameObject.SetActive (true);
 
                 Vector3 futurePosition = transform.position;
                 if (EnemyManager.main.anticipatePosition) {
-                    float distanceToEnemy = Vector3.Distance (transform.position + new Vector3 (0f, EnemyManager.main.uiYOffset, 0f), Camera.main.transform.position);
                     float timeToEnemy = distanceToEnemy / EnemyManager.main.bulletSpeedForUI;
                     futurePosition += (velocity * timeToEnemy);
                 }
@@ -125,13 +127,8 @@ public class Enemy : MonoBehaviour {
 
                 uiObject.transform.position = Vector3.Lerp (uiObject.transform.position, newPosition, EnemyManager.main.uiUpdateSmoothness);
 
-                Vector3 cameraForwardPoint = Camera.main.transform.position + (Camera.main.transform.forward * EnemyManager.main.uiCameraDistance);
-                float newUIDistance = Vector3.Distance (uiObject.transform.position, cameraForwardPoint);
-                float newAlpha = 0f;
-                if (Mathf.Abs (newUIDistance - lastUIDistance) > 0f)
-                    newAlpha = EnemyManager.main.uiAlphaAmount / Mathf.Clamp (Mathf.Abs (newUIDistance - lastUIDistance), 0f, 0.75f);
-                newAlpha = Mathf.Lerp (uiRenderer.color.a, newAlpha, 0.5f);
-                lastUIDistance = newUIDistance;
+                float newAlpha = 1f - (distanceToEnemy / EnemyManager.main.uiActivateDistance);
+                newAlpha = Mathf.Lerp (uiRenderer.color.a, newAlpha, 0.25f);
 
                 uiRenderer.color = new Color (1f, 1f, 1f, newAlpha);
                 uiObject.LookAt (Camera.main.transform);
@@ -157,6 +154,21 @@ public class Enemy : MonoBehaviour {
                 Vector3 forcePosition = new Vector3(c.transform.position.x, 0f, c.transform.position.z);
                 GetComponent<BreakUp>().Activate(forcePosition, c.gameObject.GetComponent<TurretBullet>().breakForce);
                 uiObject.gameObject.SetActive (false);
+                SpawnDestroyVFX (c.transform.position);
+                Destroy (c.gameObject);
+            }
+        }
+    }
+
+    private void SpawnDestroyVFX(Vector3 spawnPosition) {
+        for (int i=0; i< EnemyManager.main.destroyVFX.Length; i++){
+            Transform vfxTransform = ((GameObject)Instantiate (EnemyManager.main.destroyVFX[i])).transform;
+            if ((i == 0) && (torso != null)) {
+                vfxTransform.SetParent (torso);
+                vfxTransform.localPosition = Vector3.zero;
+            } else {
+                vfxTransform.SetParent (transform);
+                vfxTransform.position = spawnPosition;
             }
         }
     }
