@@ -8,6 +8,9 @@ public class EnemyManager : MonoBehaviour {
     #region Public Variables
     public static EnemyManager main;
 
+    [Header("References")]
+    public Transform enemyParent;
+
     [Header ("Visuals")]
     public Object[] destroyVFX;
 

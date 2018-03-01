@@ -6,12 +6,24 @@ public class EnemySpawner : MonoBehaviour {
 
     public SpawnType[] spawnTypes;
 
+    #region Mono Methods
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            Trigger(1);
+        }
+    }
+    #endregion
+
     #region Spawning Methods
     public void Trigger(int amount) {
-        
+        SpawnType[] waveSpawns = GetWaveSpawns();
 
         for (int a=0; a<amount; a++) {
-
+            Object prefabToSpawn = GetPrefabByChance(waveSpawns);
+            if (prefabToSpawn!= null) {
+                Transform newEnemy = ((GameObject)Instantiate(prefabToSpawn, EnemyManager.main.enemyParent)).transform;
+                newEnemy.position = transform.position;
+            }
         }
     }
 
@@ -23,6 +35,24 @@ public class EnemySpawner : MonoBehaviour {
             }
         }
         return waveSpawns.ToArray ();
+    }
+
+    private Object GetPrefabByChance(SpawnType[] spawns) {
+        if (spawns.Length > 0) {
+            float sum = 0f;
+            int index = -1;
+            for (int i = 0; i < spawns.Length; i++) {
+                sum += spawns[i].chance;
+            }
+            sum = Random.Range(0f, sum);
+            while (sum >= 0f) {
+                index++;
+                sum -= spawns[index].chance;
+            }
+            return spawns[index].prefab;
+        } else {
+            return null;
+        }
     }
     #endregion
 
