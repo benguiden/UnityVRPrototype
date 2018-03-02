@@ -91,8 +91,8 @@ public class Enemy : MonoBehaviour {
 
     private void BeginAttack() {
         if (stateWalking) {
-            animator.SetBool("isRun", false);
-            animator.SetBool("isPanch", true);
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isPunching", true);
             stateWalking = false;
             velocity = Vector3.zero;
             transform.forward = new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z) - transform.position;
