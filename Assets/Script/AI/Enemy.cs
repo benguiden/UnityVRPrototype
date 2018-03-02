@@ -219,6 +219,12 @@ public class Enemy : MonoBehaviour {
             Renderer[] limbRenderers = new Renderer[breakUp.rigidbodies.Length];
             for (int i = 0; i < breakUp.rigidbodies.Length; i++) {
                 limbRenderers[i] = breakUp.rigidbodies[i].GetComponent<Renderer> ();
+                if (limbRenderers[i] != null) {
+                    if (type == Type.Robot)
+                        limbRenderers[i].material = EnemyManager.main.transparentMatRobot;
+                    else
+                        limbRenderers[i].material = EnemyManager.main.transparentMatAlien;
+                }
                 yield return null;
             }
             Color limbColour;

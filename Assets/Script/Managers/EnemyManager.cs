@@ -14,6 +14,7 @@ public class EnemyManager : MonoBehaviour {
     [Header ("Visuals")]
     public Object[] destroyVFXRobot;
     public Object[] destroyVFXAlien;
+    public Material transparentMatRobot, transparentMatAlien;
 
     [Header ("UI")]
     public Object uiPrefab;
