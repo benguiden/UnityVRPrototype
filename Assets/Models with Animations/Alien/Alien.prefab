@@ -1562,8 +1562,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbodies:
-  - {fileID: 1305639241223526}
   - {fileID: 1714001190854606}
+  - {fileID: 1305639241223526}
   - {fileID: 1905887203803996}
   - {fileID: 1703202766075122}
   - {fileID: 1535273376079406}
@@ -1599,6 +1599,8 @@ MonoBehaviour:
   maxSpeed: 10
   torso: {fileID: 4404436162177574}
   despawnTime: 5
+  type: 1
+  stateWalking: 1
   pathFollowing:
     pathDatabase: {fileID: 11400000, guid: 98f738963ec71bd458358b1532918213, type: 2}
     pathIndex: 0
@@ -1607,7 +1609,6 @@ MonoBehaviour:
     followSpeed: 4
     pointChangeDistance: 2
     turnspeed: 0.05
-  stateWalking: 1
   isAlive: 1
 --- !u!136 &136996598355958250
 CapsuleCollider:

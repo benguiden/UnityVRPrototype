@@ -15,9 +15,10 @@ public class Enemy : MonoBehaviour {
     public Transform torso;
     public float despawnTime = 5f;
 
-    [Header("Behaviours")]
-    public PathFollower pathFollowing;
+    [Header ("Behaviours")]
+    public Type type;
     public bool stateWalking = true;
+    public PathFollower pathFollowing;
 
     [HideInInspector]
     public bool isAlive = true;
@@ -193,8 +194,14 @@ public class Enemy : MonoBehaviour {
     }
 
     private void SpawnDestroyVFX(Vector3 spawnPosition) {
-        for (int i=0; i< EnemyManager.main.destroyVFX.Length; i++){
-            Transform vfxTransform = ((GameObject)Instantiate (EnemyManager.main.destroyVFX[i])).transform;
+        Object[] vfxList;
+        if (type == Type.Robot)
+            vfxList = EnemyManager.main.destroyVFXRobot;
+        else
+            vfxList = EnemyManager.main.destroyVFXAlien;
+
+        for (int i=0; i< vfxList.Length; i++){
+            Transform vfxTransform = ((GameObject)Instantiate (vfxList[i])).transform;
             if ((i == 0) && (torso != null)) {
                 vfxTransform.SetParent (torso);
                 vfxTransform.localPosition = Vector3.zero;
@@ -233,5 +240,11 @@ public class Enemy : MonoBehaviour {
         }
     }
     #endregion
+
+    public enum Type
+    {
+        Robot,
+        Alien
+    }
 
 }

@@ -12,7 +12,8 @@ public class EnemyManager : MonoBehaviour {
     public Transform enemyParent;
 
     [Header ("Visuals")]
-    public Object[] destroyVFX;
+    public Object[] destroyVFXRobot;
+    public Object[] destroyVFXAlien;
 
     [Header ("UI")]
     public Object uiPrefab;
