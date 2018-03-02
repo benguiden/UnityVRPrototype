@@ -201,7 +201,7 @@ ModelImporter:
     4300068: Box009
     4300070: Sphere027
     4300072: Sphere028
-    7400000: mixamo.com
+    7400000: mixamoRobotPunch
     9500000: //RootNode
     13700000: Box001
     13700002: Box002
@@ -242,7 +242,7 @@ ModelImporter:
     13700072: Tube001
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -268,7 +268,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: mixamoRobotPunch
       takeName: mixamo.com
       firstFrame: 0
       lastFrame: 50

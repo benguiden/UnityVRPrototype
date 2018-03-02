@@ -2512,7 +2512,7 @@ MonoBehaviour:
     pointIndex: 0
     followSpeed: 5
     pointChangeDistance: 2
-    turnspeed: 0.025
+    turnspeed: 0.05
   isAlive: 1
 --- !u!136 &136304967053409588
 CapsuleCollider:

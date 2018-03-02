@@ -125,7 +125,7 @@ ModelImporter:
     400116: Teapot001
     2100000: No Name
     4300000: Teapot001
-    7400000: mixamo.com
+    7400000: mixMrTTalk
     9500000: //RootNode
     13700000: Teapot001
   externalObjects: {}
@@ -156,7 +156,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: mixMrTTalk
       takeName: mixamo.com
       firstFrame: 0
       lastFrame: 129

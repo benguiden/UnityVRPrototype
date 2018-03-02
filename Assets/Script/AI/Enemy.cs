@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour {
 
     [Header("Behaviours")]
     public PathFollower pathFollowing;
+    public bool stateWalking = true;
 
     [HideInInspector]
     public bool isAlive = true;
@@ -25,12 +26,13 @@ public class Enemy : MonoBehaviour {
     //UI
     private Transform uiObject;
     private SpriteRenderer uiRenderer;
+    private Animator animator;
     #endregion
 
     #region Mono Methods
     private void Awake() {
         pathFollowing.SetEnemy(this);
-
+        animator = GetComponent<Animator>();
         AwakeBehaviours();
     }
 
@@ -53,7 +55,15 @@ public class Enemy : MonoBehaviour {
     }
 
     private void Update() {
-        UpdateBehaviours();
+        if (stateWalking) {
+            UpdateBehaviours();
+            Vector3 cameraPos = new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z);
+            if (Vector3.Distance(cameraPos, transform.position) <= GameManager.main.shieldRadius) {
+                BeginAttack();
+            }
+        } else {
+            AttackBehaviour();
+        }
         UpdatePhysics();
         UpdateUIPosition ();
     }
@@ -70,6 +80,20 @@ public class Enemy : MonoBehaviour {
 
     private void GizmosBehaviours() {
         pathFollowing.OnDrawGizmos();
+    }
+
+    private void AttackBehaviour() {
+        
+    }
+
+    private void BeginAttack() {
+        if (stateWalking) {
+            animator.SetBool("isRun", false);
+            animator.SetBool("isPanch", true);
+            stateWalking = false;
+            velocity = Vector3.zero;
+            transform.forward = new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z) - transform.position;
+        }
     }
     #endregion
 

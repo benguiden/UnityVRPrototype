@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager main;
 
+    public float shieldRadius = 10f;
+
     public int wave;
 
     private void Awake() {

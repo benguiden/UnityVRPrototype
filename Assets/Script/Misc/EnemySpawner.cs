@@ -7,6 +7,10 @@ public class EnemySpawner : MonoBehaviour {
     public SpawnType[] spawnTypes;
 
     #region Mono Methods
+    private void Start() {
+        StartCoroutine(RespawnAutomatically());
+    }
+
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             Trigger(1);
@@ -15,6 +19,20 @@ public class EnemySpawner : MonoBehaviour {
     #endregion
 
     #region Spawning Methods
+    private IEnumerator RespawnAutomatically() {
+        float time = 15f;
+        while (enabled) {
+            while ((time > 0f) && (enabled)) {
+                time -= Time.deltaTime;
+                yield return null;
+            }
+            if (enabled) {
+                Trigger(1);
+                time = 2.5f;
+            }
+        }
+    }
+
     public void Trigger(int amount) {
         SpawnType[] waveSpawns = GetWaveSpawns();
 
