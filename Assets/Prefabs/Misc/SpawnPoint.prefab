@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnTypes:
-  - prefab: {fileID: 1211753703047804, guid: c99ef3ca4b4f91848896a0f6d46e902c, type: 2}
+  - prefab: {fileID: 1836613415209708, guid: f5f01d73f36c67340821ebb4c8f51749, type: 2}
     enteringWave: 0
     chance: 0.5
   - prefab: {fileID: 1312308133300726, guid: ae7456f7ca1dda6478070985ec9964db, type: 2}
