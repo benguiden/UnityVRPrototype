@@ -174,12 +174,16 @@ public class Enemy : MonoBehaviour {
     private void OnTriggerEnter(Collider c) {
         if (enabled) {
             if (c.gameObject.tag == "Projectile") {
-                isAlive = false;
-                Vector3 forcePosition = new Vector3(c.transform.position.x, 0f, c.transform.position.z);
-                GetComponent<BreakUp>().Activate(forcePosition, c.gameObject.GetComponent<TurretBullet>().breakForce);
-                uiObject.gameObject.SetActive (false);
-                SpawnDestroyVFX (c.transform.position);
-                Destroy (c.gameObject);
+                TurretBullet bullet = c.gameObject.GetComponent<TurretBullet> ();
+                if (!bullet.hit) {
+                    isAlive = false;
+                    Vector3 forcePosition = new Vector3 (c.transform.position.x, 0f, c.transform.position.z);
+                    GetComponent<BreakUp> ().Activate (forcePosition, c.gameObject.GetComponent<TurretBullet> ().breakForce);
+                    uiObject.gameObject.SetActive (false);
+                    SpawnDestroyVFX (c.transform.position);
+                    bullet.hit = true;
+                    Destroy (c.gameObject);
+                }
             }
         }
     }
