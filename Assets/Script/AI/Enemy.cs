@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour {
 
     [Header ("Visuals")]
     public Transform torso;
+    public float despawnTime = 5f;
 
     [Header("Behaviours")]
     public PathFollower pathFollowing;
@@ -27,6 +28,7 @@ public class Enemy : MonoBehaviour {
     private Transform uiObject;
     private SpriteRenderer uiRenderer;
     private Animator animator;
+    private BreakUp breakUp;
     #endregion
 
     #region Mono Methods
@@ -38,6 +40,7 @@ public class Enemy : MonoBehaviour {
 
     private void Start() {
         InitaliseUI ();
+        breakUp = GetComponent<BreakUp> ();
     }
 
     private void OnDrawGizmos() {
@@ -178,9 +181,10 @@ public class Enemy : MonoBehaviour {
                 if (!bullet.hit) {
                     isAlive = false;
                     Vector3 forcePosition = new Vector3 (c.transform.position.x, 0f, c.transform.position.z);
-                    GetComponent<BreakUp> ().Activate (forcePosition, c.gameObject.GetComponent<TurretBullet> ().breakForce);
+                    breakUp.Activate (forcePosition, c.gameObject.GetComponent<TurretBullet> ().breakForce);
                     uiObject.gameObject.SetActive (false);
                     SpawnDestroyVFX (c.transform.position);
+                    StartCoroutine (Despawn ());
                     bullet.hit = true;
                     Destroy (c.gameObject);
                 }
@@ -198,6 +202,34 @@ public class Enemy : MonoBehaviour {
                 vfxTransform.SetParent (transform);
                 vfxTransform.position = spawnPosition;
             }
+        }
+    }
+
+    private IEnumerator Despawn() {
+        yield return new WaitForSeconds (despawnTime);
+
+        if (breakUp.rigidbodies.Length != 0) {
+            Renderer[] limbRenderers = new Renderer[breakUp.rigidbodies.Length];
+            for (int i = 0; i < breakUp.rigidbodies.Length; i++) {
+                limbRenderers[i] = breakUp.rigidbodies[i].GetComponent<Renderer> ();
+                yield return null;
+            }
+            Color limbColour;
+            float time = 1f;
+            while (time > 0f) {
+                time -= Time.deltaTime;
+                
+                for (int i=0; i<limbRenderers.Length; i++) {
+                    if (limbRenderers[i] != null) {
+                        limbColour = limbRenderers[i].material.color;
+                        limbColour.a = time;
+                        limbRenderers[i].material.color = limbColour;
+                    }
+                }
+
+                yield return null;
+            }
+            Destroy (gameObject);
         }
     }
     #endregion

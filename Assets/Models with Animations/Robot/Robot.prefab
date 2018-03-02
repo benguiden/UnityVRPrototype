@@ -2489,6 +2489,7 @@ MonoBehaviour:
   - {fileID: 1177471701985600}
   - {fileID: 1880360194118240}
   - {fileID: 1510305341050372}
+  deactivateRigidbodiesTime: 3
 --- !u!114 &114555273690638872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2505,6 +2506,7 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   maxSpeed: 10
   torso: {fileID: 4406084542919142}
+  despawnTime: 5
   pathFollowing:
     pathDatabase: {fileID: 11400000, guid: 98f738963ec71bd458358b1532918213, type: 2}
     pathIndex: 0
@@ -2513,6 +2515,7 @@ MonoBehaviour:
     followSpeed: 5
     pointChangeDistance: 2
     turnspeed: 0.05
+  stateWalking: 1
   isAlive: 1
 --- !u!136 &136304967053409588
 CapsuleCollider:
