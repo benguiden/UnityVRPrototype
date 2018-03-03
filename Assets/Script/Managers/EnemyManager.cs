@@ -16,6 +16,10 @@ public class EnemyManager : MonoBehaviour {
     public Object[] destroyVFXAlien;
     public Material transparentMatRobot, transparentMatAlien;
 
+    [Header ("Audio")]
+    public AudioClip[] robotDeathAudio;
+    public AudioClip[] alienDeathAudio;
+
     [Header ("UI")]
     public Object uiPrefab;
     public Transform uiParent;
@@ -35,5 +39,33 @@ public class EnemyManager : MonoBehaviour {
         main = this;
     }
     #endregion
+
+    #region Public Methods
+    public AudioClip GetAudioClip(Enemy.Type enemyType, AudioClipType clipType) {
+        AudioClip[] clips = null;
+        switch (clipType) {
+            case AudioClipType.Death:
+                if (enemyType == Enemy.Type.Robot)
+                    clips = robotDeathAudio;
+                else
+                    clips = alienDeathAudio;
+                break;
+        }
+
+        if (clips != null) {
+            if (clips.Length > 0)
+                return clips[Random.Range (0, clips.Length)];
+            else
+                return null;
+        } else {
+            return null;
+        }
+        
+    }
+    #endregion
+
+    public enum AudioClipType{
+        Death
+    }
 
 }

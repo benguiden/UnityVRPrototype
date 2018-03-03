@@ -25,17 +25,19 @@ public class Enemy : MonoBehaviour {
     #endregion
 
     #region Private Variables
-    //UI
+    //References
     private Transform uiObject;
     private SpriteRenderer uiRenderer;
     private Animator animator;
     private BreakUp breakUp;
+    private AudioSource audioSource;
     #endregion
 
     #region Mono Methods
     private void Awake() {
         pathFollowing.SetEnemy(this);
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource> ();
         AwakeBehaviours();
     }
 
@@ -187,7 +189,10 @@ public class Enemy : MonoBehaviour {
                     SpawnDestroyVFX (c.transform.position);
                     StartCoroutine (Despawn ());
                     bullet.hit = true;
-                    Destroy (c.gameObject);
+                    audioSource.clip = EnemyManager.main.GetAudioClip (type, EnemyManager.AudioClipType.Death);
+                    audioSource.pitch = Random.Range (0.9f, 1.1f);
+                    audioSource.Play ();
+                    bullet.Deactivate ();
                 }
             }
         }

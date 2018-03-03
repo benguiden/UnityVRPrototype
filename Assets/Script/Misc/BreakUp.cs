@@ -20,7 +20,8 @@ public class BreakUp : MonoBehaviour {
         Component[] components = GetComponents (typeof (Behaviour));
 
         foreach (Component component in components) {
-            ((Behaviour)component).enabled = false;
+            if (component.GetType () != typeof (AudioSource))
+                ((Behaviour)component).enabled = false;
         }
 
         Vector3[] rigibodyPositions = new Vector3[rigidbodies.Length];

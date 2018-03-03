@@ -9,8 +9,19 @@ public class TurretBullet : MonoBehaviour {
     public float spawnTime = 0.25f;
     public float breakForce = 10f;
     public bool hit = false;
+    public AudioClip hitClip;
+
+    private new Collider collider;
+    private AudioSource audioSource;
+    private new Renderer renderer;
 
     #region Mono Methods
+    private void Awake() {
+        collider = GetComponent<Collider> ();
+        audioSource = GetComponent<AudioSource> ();
+        renderer = GetComponent<Renderer> ();
+    }
+
     private void Start() {
         StartCoroutine(SpawnGrow());
     }
@@ -51,5 +62,21 @@ public class TurretBullet : MonoBehaviour {
         transform.localScale = originalScale;
     }
     #endregion
+
+    public void Deactivate() {
+        StartCoroutine (IDeactivate ());
+    }
+
+    private IEnumerator IDeactivate() {
+        collider.enabled = false;
+        renderer.enabled = false;
+        audioSource.clip = hitClip;
+        audioSource.loop = false;
+        audioSource.Play ();
+        while (audioSource.isPlaying) {
+            yield return new WaitForSeconds (0.25f);
+        }
+        gameObject.SetActive (false);
+    }
 
 }
