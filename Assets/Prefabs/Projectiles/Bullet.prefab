@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeSpan: 4
-  speed: 40
+  speed: 60
   spawnTime: 0.2
   breakForce: 200
   hit: 0

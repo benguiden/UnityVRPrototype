@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour {
     [Header ("Stats")]
     public float damage = 1f;
     public float chargeSpeed = 1f;
+    public float[] speedPerWave = { 1f, 1.35f, 1.7f, 2f };
 
     [Header("Physics")]
     public float mass = 1f;
@@ -48,6 +49,9 @@ public class Enemy : MonoBehaviour {
     private void Start() {
         InitaliseUI ();
         breakUp = GetComponent<BreakUp> ();
+
+        chargeSpeed = speedPerWave[GameManager.main.wave];
+        animator.speed = chargeSpeed;
     }
 
     private void OnDrawGizmos() {

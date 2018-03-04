@@ -1494,10 +1494,11 @@ MonoBehaviour:
   shieldRadius: 11.5
   wave: 0
   waveTime:
-  - 30
   - 45
   - 60
-  shieldHP: 50
+  - 75
+  - 0
+  shieldHP: 100
   shieldIndicator: {fileID: 679239095}
   shieldIndicatorRange: {x: -90, y: 90}
   shieldIndicatorSmoothness: 0.97
@@ -2126,7 +2127,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -128}
+  m_AnchoredPosition: {x: 0, y: -180}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &509856255
@@ -2852,7 +2853,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -128}
+  m_AnchoredPosition: {x: 0, y: -180}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &733643221
@@ -4785,7 +4786,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 30
+  m_Text: 45
 --- !u!222 &1156623972
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4891,7 +4892,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1233560140
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5219,7 +5220,7 @@ MonoBehaviour:
   uiYOffset: 2.2
   uiCameraDistance: 2
   anticipatePosition: 1
-  bulletSpeedForUI: 40
+  bulletSpeedForUI: 60
 --- !u!1 &1261065337
 GameObject:
   m_ObjectHideFlags: 0

@@ -1680,6 +1680,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90552107805ad694baee8d3688f04c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 1
+  chargeSpeed: 1
+  speedPerWave:
+  - 0.8
+  - 1
+  - 1.25
+  - 1.5
   mass: 1
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
