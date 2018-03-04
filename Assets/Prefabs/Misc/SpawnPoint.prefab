@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943947592561182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.5, y: 0, z: 78.7}
+  m_LocalPosition: {x: -2.17, y: 0, z: 88.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73f370b08f2ee314cb749a24a7f99d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathDatabase: {fileID: 11400000, guid: 98f738963ec71bd458358b1532918213, type: 2}
+  pathIndexes: 000000000100000002000000
   spawnTypes:
   - prefab: {fileID: 1836613415209708, guid: f5f01d73f36c67340821ebb4c8f51749, type: 2}
     enteringWave: 0

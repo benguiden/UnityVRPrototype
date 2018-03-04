@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour {
 
+    public PathDatabase pathDatabase;
+    public int[] pathIndexes;
+
+    public Vector2 spawnGap = new Vector2 (2f, 4f);
+
     public SpawnType[] spawnTypes;
 
     #region Mono Methods
@@ -20,7 +25,7 @@ public class EnemySpawner : MonoBehaviour {
 
     #region Spawning Methods
     private IEnumerator RespawnAutomatically() {
-        float time = 15f;
+        float time = 5f;
         while (enabled) {
             while ((time > 0f) && (enabled)) {
                 time -= Time.deltaTime;
@@ -28,7 +33,7 @@ public class EnemySpawner : MonoBehaviour {
             }
             if (enabled) {
                 Trigger(1);
-                time = 2.5f;
+                time = Mathf.Lerp (spawnGap.x, spawnGap.y, Random.value);
             }
         }
     }
@@ -41,6 +46,10 @@ public class EnemySpawner : MonoBehaviour {
             if (prefabToSpawn!= null) {
                 Transform newEnemy = ((GameObject)Instantiate(prefabToSpawn, EnemyManager.main.enemyParent)).transform;
                 newEnemy.position = transform.position;
+                Enemy newEnemyStats = newEnemy.GetComponent<Enemy> ();
+                newEnemyStats.pathFollowing.pathDatabase = pathDatabase;
+                newEnemyStats.pathFollowing.pathIndex = (uint)pathIndexes[Random.Range (0, pathIndexes.Length)];
+                newEnemyStats.pathFollowing.RefreshPath ();
             }
         }
     }

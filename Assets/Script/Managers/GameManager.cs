@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour {
 
     public float shieldRadius = 10f;
 
+    [Header("Waves")]
     public int wave;
+    public float[] waveTime;
 
     [Header("Shield")]
     public float shieldHP = 25f;
@@ -16,6 +18,7 @@ public class GameManager : MonoBehaviour {
     public Vector2 shieldIndicatorRange = new Vector2 (-90f, 90f);
     public float shieldIndicatorSmoothness = 0.85f;
 
+    private float currentWaveTime;
     private float maxShieldHP;
     private float shieldHPAngle;
 
@@ -23,14 +26,26 @@ public class GameManager : MonoBehaviour {
         main = this;
         maxShieldHP = shieldHP;
         shieldHPAngle = shieldIndicatorRange.y;
+        currentWaveTime = waveTime[0];
     }
 
     private void Update() {
         shieldIndicator.localEulerAngles = new Vector3 (0f, 0f, Mathf.LerpAngle (shieldIndicator.localEulerAngles.z, shieldHPAngle, Time.deltaTime * 60f * (1f - shieldIndicatorSmoothness)));
 
-        if (Input.GetKeyDown (KeyCode.Space)) {
-            TakeDamage (1f);
+        //Wave Update
+        currentWaveTime -= Time.deltaTime;
+        if (currentWaveTime <= 0f) {
+            if (wave < waveTime.Length - 1) {
+                wave++;
+                currentWaveTime = waveTime[wave];
+                UIManager.main.waveIndexText.text = (wave + 1).ToString ();
+            } else {
+                currentWaveTime = -0.5f;
+            }
         }
+
+        UIManager.main.waveTimeText.text = (Mathf.FloorToInt (currentWaveTime) + 1).ToString ();
+
     }
 
     public void RestartGame() {

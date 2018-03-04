@@ -68,7 +68,7 @@ using UnityEngine;
     #endregion
 
         #region Movement Methods
-        private void RefreshPath() {
+        public void RefreshPath() {
             if (pathDatabase == null) {
                 Debug.LogWarning ("Warning: Path Database reference on " + enemy.gameObject.name + " set to null.\n");
                 return;

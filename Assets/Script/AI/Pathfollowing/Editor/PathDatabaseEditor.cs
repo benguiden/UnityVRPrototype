@@ -28,7 +28,7 @@ using UnityEditor;
                     GUI.backgroundColor = new Color (0.75f, 0.75f, 0.75f, 1f);
 
                     EditorGUILayout.BeginHorizontal ();
-                    if (GUILayout.Button (database.paths[i].name, EditorStyles.toolbarButton)) {
+                    if (GUILayout.Button (i.ToString() + ": " + database.paths[i].name, EditorStyles.toolbarButton)) {
                         pathIndex = -1;
                     } else if (GUILayout.Button ("x", EditorStyles.toolbarButton, GUILayout.Width (24))) {
                         database.paths.RemoveAt (i);
@@ -80,7 +80,7 @@ using UnityEditor;
 
                     GUILayout.Space (24);
                     GUI.backgroundColor = new Color (0.6f, 0.6f, 0.5f, 1f);
-                } else if (GUILayout.Button (database.paths[i].name, EditorStyles.toolbarButton)) {
+                } else if (GUILayout.Button (i.ToString () + ": " + database.paths[i].name, EditorStyles.toolbarButton)) {
                     pathIndex = i;
                 }
             }

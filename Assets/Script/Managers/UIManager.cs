@@ -8,6 +8,10 @@ public class UIManager : MonoBehaviour {
     #region Public Variables
     public static UIManager main;
 
+    [Header ("Waves")]
+    public Text waveIndexText;
+    public Text waveTimeText;
+
     [Header ("Bullets")]
     public RectTransform[] bulletMasks;
     public float bulletMaskHeight;
