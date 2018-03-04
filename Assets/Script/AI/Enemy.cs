@@ -99,6 +99,11 @@ public class Enemy : MonoBehaviour {
             stateWalking = false;
             velocity = Vector3.zero;
             transform.forward = new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z) - transform.position;
+
+            //Lock position
+            Vector3 differenceVector = new Vector3 (transform.position.x, 0f, transform.position.z);
+            differenceVector = differenceVector - new Vector3 (Camera.main.transform.position.x, 0f, Camera.main.transform.position.z);
+            transform.position = new Vector3 (Camera.main.transform.position.x, 0f, Camera.main.transform.position.z) + (differenceVector.normalized * GameManager.main.shieldRadius);
         }
     }
     #endregion
@@ -229,6 +234,7 @@ public class Enemy : MonoBehaviour {
                         limbRenderers[i].material = EnemyManager.main.transparentMatRobot;
                     else
                         limbRenderers[i].material = EnemyManager.main.transparentMatAlien;
+                    limbRenderers[i].material.renderQueue = 2800;
                 }
                 yield return null;
             }
@@ -249,6 +255,14 @@ public class Enemy : MonoBehaviour {
             }
             Destroy (gameObject);
         }
+    }
+
+    public void PunchShield() {
+        Vector3 vfxPosition = Camera.main.transform.position - (transform.forward * EnemyManager.main.shieldVFXRadius);
+        vfxPosition.y = EnemyManager.main.shieldVFXY;
+        Transform VFXTrans = ((GameObject)Instantiate (EnemyManager.main.shieldVFX)).transform;
+        VFXTrans.position = vfxPosition;
+        VFXTrans.LookAt (EnemyManager.main.shieldTransform);
     }
     #endregion
 
