@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour {
     #region Public Visible Variables
+    [Header ("Stats")]
+    public float damage = 1f;
+    public float chargeSpeed = 1f;
+
     [Header("Physics")]
     public float mass = 1f;
     public Vector3 velocity;
@@ -127,7 +131,7 @@ public class Enemy : MonoBehaviour {
         velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
         acceleration = Vector3.zero;
 
-        transform.position += velocity * Time.deltaTime;
+        transform.position += velocity * Time.deltaTime * chargeSpeed;
     }
     #endregion
 
@@ -260,9 +264,10 @@ public class Enemy : MonoBehaviour {
     public void PunchShield() {
         Vector3 vfxPosition = Camera.main.transform.position - (transform.forward * EnemyManager.main.shieldVFXRadius);
         vfxPosition.y = EnemyManager.main.shieldVFXY;
-        Transform VFXTrans = ((GameObject)Instantiate (EnemyManager.main.shieldVFX)).transform;
+        Transform VFXTrans = ((GameObject)Instantiate (EnemyManager.main.shieldVFX, EnemyManager.main.shieldTransform)).transform;
         VFXTrans.position = vfxPosition;
         VFXTrans.LookAt (EnemyManager.main.shieldTransform);
+        GameManager.main.TakeDamage (damage);
     }
     #endregion
 
