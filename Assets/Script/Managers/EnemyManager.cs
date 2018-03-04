@@ -19,6 +19,7 @@ public class EnemyManager : MonoBehaviour {
     [Header ("Audio")]
     public AudioClip[] robotDeathAudio;
     public AudioClip[] alienDeathAudio;
+    public AudioClip[] shieldPunch;
 
     [Header ("Shield Punching")]
     public Transform shieldTransform;

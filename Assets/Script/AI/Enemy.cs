@@ -204,6 +204,7 @@ public class Enemy : MonoBehaviour {
                     bullet.hit = true;
                     audioSource.clip = EnemyManager.main.GetAudioClip (type, EnemyManager.AudioClipType.Death);
                     audioSource.pitch = Random.Range (0.9f, 1.1f);
+                    audioSource.volume = 0.85f;
                     audioSource.Play ();
                     bullet.Deactivate ();
                 }
@@ -271,6 +272,12 @@ public class Enemy : MonoBehaviour {
         Transform VFXTrans = ((GameObject)Instantiate (EnemyManager.main.shieldVFX, EnemyManager.main.shieldTransform)).transform;
         VFXTrans.position = vfxPosition;
         VFXTrans.LookAt (EnemyManager.main.shieldTransform);
+
+        audioSource.clip = EnemyManager.main.shieldPunch[Random.Range (0, EnemyManager.main.shieldPunch.Length)];
+        audioSource.pitch = Random.Range (0.9f, 1.1f);
+        audioSource.volume = 0.75f;
+        audioSource.Play ();
+
         GameManager.main.TakeDamage (damage);
     }
     #endregion

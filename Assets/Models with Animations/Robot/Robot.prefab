@@ -2538,8 +2538,8 @@ MonoBehaviour:
   damage: 1
   chargeSpeed: 1
   speedPerWave:
-  - 0.8
   - 1
+  - 1.1
   - 1.25
   - 1.5
   mass: 1

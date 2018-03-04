@@ -1461,6 +1461,11 @@ Prefab:
       propertyPath: m_Name
       value: SpawnPoint01
       objectReference: {fileID: 0}
+    - target: {fileID: 114804672020241882, guid: 953105b22e97d5341a5cc3c724c8a83a,
+        type: 2}
+      propertyPath: spawnTypes.Array.data[1].enteringWave
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 953105b22e97d5341a5cc3c724c8a83a, type: 2}
   m_IsPrefabParent: 0
@@ -2698,6 +2703,7 @@ GameObject:
   m_Component:
   - component: {fileID: 641736146}
   - component: {fileID: 641736145}
+  - component: {fileID: 641736147}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -2753,6 +2759,86 @@ Transform:
   m_Father: {fileID: 959308593}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &641736147
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 641736144}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 34576b627fad0504db8d90e10c4f2dec, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.15
+  m_Pitch: 1.8
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &679239094
 GameObject:
   m_ObjectHideFlags: 0
@@ -4892,7 +4978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &1233560140
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5203,9 +5289,14 @@ MonoBehaviour:
   transparentMatRobot: {fileID: 2100000, guid: 0325a442307689a45adeeb9f7a83862c, type: 2}
   transparentMatAlien: {fileID: 2100000, guid: e6cb3f56a42d0ea4b8b3da8253abc4bb, type: 2}
   robotDeathAudio:
+  - {fileID: 8300000, guid: cc0c4535d8e9c6e479120a21b6f81044, type: 3}
   - {fileID: 8300000, guid: 7670fd486c1b2ab4797da7056a36e8e2, type: 3}
   alienDeathAudio:
-  - {fileID: 8300000, guid: cc0c4535d8e9c6e479120a21b6f81044, type: 3}
+  - {fileID: 8300000, guid: 988de1660cf495f4cb37a0ed6d8d2a22, type: 3}
+  - {fileID: 8300000, guid: f24b46b762647e64ea0f7a6d5a838a7c, type: 3}
+  shieldPunch:
+  - {fileID: 8300000, guid: fb9db2d31ade9534cbe5090db94fcfd1, type: 3}
+  - {fileID: 8300000, guid: fb9db2d31ade9534cbe5090db94fcfd1, type: 3}
   shieldTransform: {fileID: 1910165902}
   shieldVFX: {fileID: 100000, guid: 7842d0e7815c5ed489ab8788dc21e874, type: 2}
   shieldVFXY: 2.5
@@ -5213,7 +5304,7 @@ MonoBehaviour:
   shieldSFX: {fileID: 0}
   uiPrefab: {fileID: 1409621518643228, guid: ad8f70b7a1dca384b9555d796252bfeb, type: 2}
   uiParent: {fileID: 1601227756}
-  uiActivateDistance: 50
+  uiActivateDistance: 75
   updateUIRate: 30
   uiUpdateSmoothness: 1
   uiAlphaAmount: 0.0025
@@ -6292,7 +6383,7 @@ Prefab:
     - target: {fileID: 114804672020241882, guid: 953105b22e97d5341a5cc3c724c8a83a,
         type: 2}
       propertyPath: spawnTypes.Array.data[0].enteringWave
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114804672020241882, guid: 953105b22e97d5341a5cc3c724c8a83a,
         type: 2}

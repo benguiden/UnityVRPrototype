@@ -18,6 +18,7 @@ public class ShootingControl : MonoBehaviour {
 
     #region Private Variables
     private float recticleTimeT = 0;
+    private AudioSource audioSource;
     #endregion
 
     #region Mono Methods
@@ -26,7 +27,10 @@ public class ShootingControl : MonoBehaviour {
         Gizmos.DrawLine (transform.position, transform.position + transform.forward);
     }
 
-    
+    private void Awake() {
+        audioSource = GetComponent<AudioSource> ();
+    }
+
     private void Update() {
         //#if UNITY_EDITOR
         if (Input.GetMouseButtonDown (0))
@@ -48,6 +52,8 @@ public class ShootingControl : MonoBehaviour {
 
     #region Shooting Methods
     public void Shoot(){
+        audioSource.time = 0f;
+        audioSource.Play ();
         TurretBullet bullet = ((GameObject)Instantiate(bulletPrefab)).GetComponent<TurretBullet>();
         bullet.transform.position = transform.position + transform.TransformDirection(bulletOffset);
         bullet.Inialise(transform.forward, bulletParent);
