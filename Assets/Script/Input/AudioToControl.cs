@@ -30,7 +30,6 @@ public class AudioToControl : MonoBehaviour {
     private AudioSource audioSource;
 
     private float[] inputSpectrum = new float[1024];
-    private float[] noiseSpectrum = new float[1024];
 
     private float bangVolume;
 	private bool isShooting = false;
@@ -44,7 +43,7 @@ public class AudioToControl : MonoBehaviour {
     }
 
     void Start() {
-        StartCoroutine(CalibrateNoise());
+        StartCoroutine (UpdateSpectrum ());
     }
     #endregion
 
@@ -93,30 +92,7 @@ public class AudioToControl : MonoBehaviour {
         }
     }
 
-    private IEnumerator CalibrateNoise() {
-        Debug.LogWarning("Calibrating Noise...");
-        float time = calibrateNoiseTime;
-        int ticks = 0;
-        while (time > 0f) {
-            GetSpectrum();
-
-            if (lineRendererClean != null)
-                DrawCleanLine(lineRendererClean, false);
-
-            for (int i=0; i<inputSpectrum.Length; i++) {
-                noiseSpectrum[i] += inputSpectrum[i];
-            }
-            ticks++;
-
-            time -= 1f / updateRate;
-            yield return new WaitForSeconds(1f / updateRate);
-        }
-        for (int i=0; i<noiseSpectrum.Length; i++) {
-            noiseSpectrum[i] /= (float)ticks;
-        }
-        Debug.LogWarning("Noise Calibrated");
-        StartCoroutine(UpdateSpectrum());
-    }
+    
 
     private float GetBangVolume() {
         float freqStep = 24000f / (float)inputSpectrum.Length;
@@ -131,7 +107,7 @@ public class AudioToControl : MonoBehaviour {
             float sum = 0f;
             float indexedVolume = 0f;
             for (int i = lowIndex; i <= highIndex; i++) {
-                indexedVolume = inputSpectrum[i] - noiseSpectrum[i];
+                indexedVolume = inputSpectrum[i] - GlobalManager.micNoise[i];
                 if (indexedVolume > sum)
                     sum = indexedVolume;
             }
@@ -146,7 +122,7 @@ public class AudioToControl : MonoBehaviour {
     private void DrawCleanLine(LineRenderer lineRenderer, bool includeNoise) {
         if (includeNoise) {
             for (int i = 0; i < lineRenderer.positionCount; i++) {
-                float y = k * (inputSpectrum[i * 2] - noiseSpectrum[i * 2]);
+                float y = k * (inputSpectrum[i * 2] - GlobalManager.micNoise[i * 2]);
                 if (y < 0f)
                     y = 0f;
                 lineRenderer.SetPosition(i, new Vector3(i / 4f, y, 0f));

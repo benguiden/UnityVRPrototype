@@ -129,18 +129,20 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1461242026974284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc57f8be5fb2e7a409b616804fd34304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   k: 100
-  fftWindow: 0
+  fftWindow: 1
   normalizeSpectrum: 1
-  normlaizedAmount: 5
-  bangShootThreshold: 0
-  lowBangFreq: 50
-  highBangFreq: 2000
+  normlaizedAmount: 10
+  updateRate: 30
+  calibrateNoiseTime: 3
+  bangShootThreshold: 8
+  lowBangFreq: 500
+  highBangFreq: 1500
   shootingControl: {fileID: 0}
   lineRendererClean: {fileID: 0}
   bangIndicator: {fileID: 0}
@@ -151,7 +153,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1461242026974284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e63fa196934e2474a80acc719c789577, type: 3}
   m_Name: 

@@ -10,11 +10,24 @@ public class MenuManager : MonoBehaviour {
 
     public GameObject musicCross;
 
+    public AudioSource micInputSource;
+
+    public Transform micCalibrationLine;
+    public float micCalibrationScale;
+
     public static MenuManager main;
 
     private void Awake() {
         main = this;
 
+        if (!GlobalManager.music) {
+            musicSource.enabled = false;
+            musicCross.SetActive (true);
+        }
+    }
+
+    public void UpdateMicLine(float progress) {
+        micCalibrationLine.localScale = new Vector3 (progress * micCalibrationScale, micCalibrationLine.localScale.y, 1f);
     }
 
     public void Trigger(MenuTrigger.MenuButton button) {
@@ -40,8 +53,13 @@ public class MenuManager : MonoBehaviour {
                         musicCross.SetActive (false);
                     }
                     break;
+                case MenuTrigger.MenuButton.CalibrateMic:
+                    StartCoroutine (GlobalManager.CalibrateNoise ());
+                    break;
             }
         }
     }
+
+    
 
 }

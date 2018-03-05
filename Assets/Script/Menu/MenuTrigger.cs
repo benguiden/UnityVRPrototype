@@ -10,14 +10,19 @@ public class MenuTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider c) {
         if ((c.gameObject.tag == "Projectile") && (enabled)) {
-            MenuManager.main.Trigger (buttonType);
+            if (buttonType == MenuButton.ToMenu)
+                GameManager.main.RestartGame ();
+            else
+                MenuManager.main.Trigger (buttonType);
         }
     }
 
     public enum MenuButton{
         Play,
         Exit,
-        Music
+        Music,
+        ToMenu,
+        CalibrateMic
     }
 
 }
