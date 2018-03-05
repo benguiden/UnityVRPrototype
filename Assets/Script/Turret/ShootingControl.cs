@@ -57,7 +57,8 @@ public class ShootingControl : MonoBehaviour {
         TurretBullet bullet = ((GameObject)Instantiate(bulletPrefab)).GetComponent<TurretBullet>();
         bullet.transform.position = transform.position + transform.TransformDirection(bulletOffset);
         bullet.Inialise(transform.forward, bulletParent);
-        UIManager.main.ReloadBulletUI ();
+        if (UIManager.main != null)
+            UIManager.main.ReloadBulletUI ();
         recticleTimeT = 0f;
     }
     #endregion

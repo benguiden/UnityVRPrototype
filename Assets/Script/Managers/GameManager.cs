@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
 
     public float shieldRadius = 10f;
 
+    public AudioSource music;
+
     [Header("Waves")]
     public int wave;
     public float[] waveTime;
@@ -27,6 +29,11 @@ public class GameManager : MonoBehaviour {
         maxShieldHP = shieldHP;
         shieldHPAngle = shieldIndicatorRange.y;
         currentWaveTime = waveTime[0];
+
+        if (music != null) {
+            if (!GlobalManager.music)
+                music.enabled = false;
+        }
     }
 
     private void Update() {
