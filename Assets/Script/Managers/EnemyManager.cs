@@ -14,11 +14,12 @@ public class EnemyManager : MonoBehaviour {
     [Header ("Visuals")]
     public Object[] destroyVFXRobot;
     public Object[] destroyVFXAlien;
-    public Material transparentMatRobot, transparentMatAlien;
+    public Material transparentMatRobot, transparentMatAlien, transparentMatMrT;
 
     [Header ("Audio")]
     public AudioClip[] robotDeathAudio;
     public AudioClip[] alienDeathAudio;
+    public AudioClip[] mrTDeathAudio;
     public AudioClip[] shieldPunch;
 
     [Header ("Shield Punching")]
@@ -54,8 +55,10 @@ public class EnemyManager : MonoBehaviour {
             case AudioClipType.Death:
                 if (enemyType == Enemy.Type.Robot)
                     clips = robotDeathAudio;
-                else
+                else if (enemyType == Enemy.Type.Alien)
                     clips = alienDeathAudio;
+                else
+                    clips = mrTDeathAudio;
                 break;
         }
 

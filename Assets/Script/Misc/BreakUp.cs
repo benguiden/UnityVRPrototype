@@ -28,6 +28,7 @@ public class BreakUp : MonoBehaviour {
         Rigidbody[] rigidbodyComponents = new Rigidbody[rigidbodies.Length];
 
         for (int i = 0; i < rigidbodies.Length; i++) {
+            rigidbodies[i].SetActive (true);
             rigidbodyComponents[i] = rigidbodies[i].AddComponent<Rigidbody> ();
             rigidbodyComponents[i].collisionDetectionMode = CollisionDetectionMode.Discrete;
             Collider objectCollider = rigidbodies[i].GetComponent<Collider> ();

@@ -214,10 +214,10 @@ public class Enemy : MonoBehaviour {
 
     private void SpawnDestroyVFX(Vector3 spawnPosition) {
         Object[] vfxList;
-        if (type == Type.Robot)
-            vfxList = EnemyManager.main.destroyVFXRobot;
-        else
+        if (type == Type.Alien)
             vfxList = EnemyManager.main.destroyVFXAlien;
+        else
+            vfxList = EnemyManager.main.destroyVFXRobot;
 
         for (int i=0; i< vfxList.Length; i++){
             Transform vfxTransform = ((GameObject)Instantiate (vfxList[i])).transform;
@@ -241,8 +241,10 @@ public class Enemy : MonoBehaviour {
                 if (limbRenderers[i] != null) {
                     if (type == Type.Robot)
                         limbRenderers[i].material = EnemyManager.main.transparentMatRobot;
-                    else
+                    else if (type == Type.Alien)
                         limbRenderers[i].material = EnemyManager.main.transparentMatAlien;
+                    else
+                        limbRenderers[i].material = EnemyManager.main.transparentMatMrT;
                     limbRenderers[i].material.renderQueue = 2800;
                 }
                 yield return null;
@@ -285,7 +287,8 @@ public class Enemy : MonoBehaviour {
     public enum Type
     {
         Robot,
-        Alien
+        Alien,
+        MrTea
     }
 
 }
