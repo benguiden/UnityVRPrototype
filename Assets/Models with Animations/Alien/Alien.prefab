@@ -1683,10 +1683,10 @@ MonoBehaviour:
   damage: 1
   chargeSpeed: 1
   speedPerWave:
-  - 0.8
   - 1
+  - 1.1
+  - 1.2
   - 1.25
-  - 1.5
   mass: 1
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
@@ -1713,7 +1713,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.06
+  m_Radius: 0.08
   m_Height: 0.32
   m_Direction: 1
   m_Center: {x: 0, y: 0.16, z: 0}

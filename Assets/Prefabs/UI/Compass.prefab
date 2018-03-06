@@ -815,3 +815,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reference: {fileID: 0}
   smoothness: 0.5
+  offset: 45

@@ -50,8 +50,8 @@ public class Enemy : MonoBehaviour {
         InitaliseUI ();
         breakUp = GetComponent<BreakUp> ();
 
-        chargeSpeed = speedPerWave[GameManager.main.wave];
-        animator.speed = chargeSpeed;
+        chargeSpeed = speedPerWave[GameManager.main.wave] * 1.5f;
+        animator.speed = chargeSpeed / 1.5f;
     }
 
     private void OnDrawGizmos() {

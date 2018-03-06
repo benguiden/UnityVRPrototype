@@ -45,7 +45,10 @@ public class EnemySpawner : MonoBehaviour {
             Object prefabToSpawn = GetPrefabByChance(waveSpawns);
             if (prefabToSpawn!= null) {
                 Transform newEnemy = ((GameObject)Instantiate(prefabToSpawn, EnemyManager.main.enemyParent)).transform;
-                newEnemy.position = transform.position;
+                Vector3 newPosition = transform.position;
+                newPosition.x += Random.Range (-1f, 1f);
+                newPosition.z += Random.Range (-1f, 1f);
+                newEnemy.position = newPosition;
                 Enemy newEnemyStats = newEnemy.GetComponent<Enemy> ();
                 newEnemyStats.pathFollowing.pathDatabase = pathDatabase;
                 newEnemyStats.pathFollowing.pathIndex = (uint)pathIndexes[Random.Range (0, pathIndexes.Length)];
