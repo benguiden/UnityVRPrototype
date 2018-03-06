@@ -8,12 +8,13 @@ public class MenuManager : MonoBehaviour {
 
     public AudioSource musicSource;
 
-    public GameObject musicCross;
-
     public AudioSource micInputSource;
 
     public Transform micCalibrationLine;
     public float micCalibrationScale;
+
+    public SpriteRenderer micInputRenderer;
+    public Sprite micInputSpr, touchInputSpr;
 
     public static MenuManager main;
 
@@ -22,7 +23,6 @@ public class MenuManager : MonoBehaviour {
 
         if (!GlobalManager.music) {
             musicSource.enabled = false;
-            musicCross.SetActive (true);
         }
     }
 
@@ -46,15 +46,22 @@ public class MenuManager : MonoBehaviour {
                     if (GlobalManager.music) {
                         musicSource.enabled = false;
                         GlobalManager.music = false;
-                        musicCross.SetActive (true);
                     } else {
                         musicSource.enabled = true;
                         GlobalManager.music = true;
-                        musicCross.SetActive (false);
                     }
                     break;
                 case MenuTrigger.MenuButton.CalibrateMic:
                     StartCoroutine (GlobalManager.CalibrateNoise ());
+                    break;
+                case MenuTrigger.MenuButton.MicInput:
+                    if (GlobalManager.micInput) {
+                        micInputRenderer.sprite = touchInputSpr;
+                        GlobalManager.micInput = false;
+                    } else {
+                        micInputRenderer.sprite = micInputSpr;
+                        GlobalManager.micInput = true;
+                    }
                     break;
             }
         }

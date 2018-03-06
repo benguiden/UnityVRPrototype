@@ -5,6 +5,7 @@ using UnityEngine;
 public class GlobalManager {
 
     public static bool music = true;
+    public static bool micInput = true;
     public static float[] micNoise = new float[1024];
     public static float[] inputSpectrum = new float[1024];
 

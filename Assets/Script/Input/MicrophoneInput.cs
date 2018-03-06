@@ -10,6 +10,9 @@ public class MicrophoneInput : MonoBehaviour {
 
     private void Awake() {
         audioSource = GetComponent<AudioSource> ();
+        if (!GlobalManager.micInput) {
+            gameObject.SetActive (false);
+        }
     }
 
     private void Start() {

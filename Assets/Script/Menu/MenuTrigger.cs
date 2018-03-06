@@ -6,8 +6,6 @@ public class MenuTrigger : MonoBehaviour {
 
     public MenuButton buttonType;
 
-
-
     private void OnTriggerEnter(Collider c) {
         if ((c.gameObject.tag == "Projectile") && (enabled)) {
             if (buttonType == MenuButton.ToMenu)
@@ -22,7 +20,8 @@ public class MenuTrigger : MonoBehaviour {
         Exit,
         Music,
         ToMenu,
-        CalibrateMic
+        CalibrateMic,
+        MicInput
     }
 
 }
