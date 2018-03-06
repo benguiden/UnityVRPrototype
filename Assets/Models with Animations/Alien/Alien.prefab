@@ -1683,10 +1683,10 @@ MonoBehaviour:
   damage: 1
   chargeSpeed: 1
   speedPerWave:
+  - 0.9
+  - 0.9
   - 1
-  - 1.1
-  - 1.2
-  - 1.25
+  - 1.05
   mass: 1
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}

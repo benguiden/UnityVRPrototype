@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41c33cbf7ec3ae4a9e7825e46bb3b69, type: 3}
+  m_Name: PathCave
+  m_EditorClassIdentifier: 
+  paths:
+  - name: 01Path01
+    color: {r: 0.24705884, g: 0.24705884, b: 0.24705884, a: 1}
+    points:
+    - {x: 67.5317, y: 0, z: -157.08745}
+    - {x: 21.056175, y: 0, z: -129.48515}
+    - {x: 4.4488163, y: 0, z: -86.49184}
+    - {x: 12.5200405, y: 0, z: -57.108818}
+    - {x: -3.1813202, y: 0, z: -25.779625}
+    - {x: 1.8703117, y: 0, z: -3.6583729}
+  - name: 01Path02
+    color: {r: 0.37647063, g: 0.3019608, b: 0.37647063, a: 1}
+    points:
+    - {x: 72.14845, y: 0, z: -160.63902}
+    - {x: 87.18339, y: 0, z: -110.08091}
+    - {x: 27.36023, y: 0, z: -61.03392}
+    - {x: 16.181765, y: 0, z: -20.87461}
+    - {x: 16.181765, y: 0, z: -20.87461}
