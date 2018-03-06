@@ -7,6 +7,7 @@ public class AlienParagraph : MonoBehaviour {
     public float updateTime = 0.25f;
     public int lineWidth = 8;
     public int lineCount = 8;
+    public bool binary = false;
 
     private char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
@@ -58,11 +59,19 @@ public class AlienParagraph : MonoBehaviour {
     private string GenerateLine() {
         string newStr = "";
 
-        for (int i=0; i<lineWidth; i++) {
-            if (Random.value < 0.25)
-                newStr += " ";
-            else
-                newStr += letters[Random.Range (0, letters.Length)];
+        for (int i = 0; i < lineWidth; i++) {
+            if (binary) {
+                if (Random.value < 0.5) {
+                    newStr += "0";
+                } else {
+                    newStr += "1 ";
+                }
+            } else {
+                if (Random.value < 0.25)
+                    newStr += " ";
+                else
+                    newStr += letters[Random.Range (0, letters.Length)];
+            }
         }
 
         return newStr;
